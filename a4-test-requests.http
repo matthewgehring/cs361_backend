@@ -1,0 +1,51 @@
+### Create an lick
+POST http://localhost:3000/licks HTTP/1.1
+content-type: application/json
+
+{
+    "key": "Bmaj",
+    "chord": "Bmaj7",
+    "progression": "2, 5, 1" ,
+    "sentiment": "lbs",
+    "tab": "06-24-21"
+}
+
+### Create another lick
+POST http://localhost:3000/licks HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Deadlift",
+    "reps": 10,
+    "weight": 30,
+    "unit": "lbs",
+    "date": "06-25-21"
+}
+
+### Retrieve should return the 2 licks we just created
+GET http://localhost:3000/licks HTTP/1.1
+
+
+### Edit the Deadlift. 
+### NOTE: Set ID to the ID for Deadlift
+PUT http://localhost:3000/licks/sdf HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Deadlift",
+    "reps": 12,
+    "weight": 30,
+    "unit": "lbs",
+    "date": "06-25-21"
+}
+
+### Verify that reps value for Deadlift is now 12
+GET http://localhost:3000/licks HTTP/1.1
+
+
+### Delete the Deadlift
+### NOTE: Set ID to the ID for Deadlift
+DELETE http://localhost:3000/licks/61a948edee402d4034f460d0 HTTP/1.1
+
+### Verify that the Deadlift lick has been deleted
+GET http://localhost:3000/licks HTTP/1.1
