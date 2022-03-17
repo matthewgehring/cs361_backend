@@ -42,7 +42,7 @@ const retrieveOneLick = async (id) => {
 }
 //update
 const updateLick = async (conditions, update, options) => {
-    const query = await Lick.findOneAndupdate(conditions, update, options)
+    const query = await Lick.findOneAndUpdate(conditions, update, options)
 
     if(query){
         query.save()
@@ -51,10 +51,17 @@ const updateLick = async (conditions, update, options) => {
         return 0
     }
 }
+
+//filter
+const filterLick = async (params) => {
+    const query = Lick.find(params)
+    return query.exec()
+}
+
 //Delete
 const deleteLick = async(id) => {
     const item = await Lick.deleteOne(id)
     return item
 }
 
-export {createLick, retrieveLick, retrieveOneLick, updateLick, deleteLick};
+export {createLick, retrieveLick, retrieveOneLick, filterLick, updateLick, deleteLick};

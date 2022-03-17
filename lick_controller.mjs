@@ -2,11 +2,10 @@ import * as Licks from './lick_model.mjs'
 import express from 'express'
 import got from 'got';
 
-
-
 const app = express()
 const PORT = 3000
-app.use(express.json()).use(express.urlencoded({ extended: true })) 
+app.use(express.json({limit: "30mb",extended:true}));
+app.use(express.urlencoded({limit: "30mb",extended:true}));
 
 //request microservice sentiment
 const getSentiment = async (text) => {
@@ -41,6 +40,19 @@ app.get("/licks", (req, res) => {
         res.status(500).send({error: "Request Failed"})
     })
     
+})
+
+//filter
+app.post("/licks/filter", (req, res) => {
+    const params = Object.entries(req.body).reduce((a,[k,v]) => (v == null ? a : (a[k]=v, a)), {})
+    Licks.filterLick(params)
+    .then(licks => {
+        res.send(licks)
+    })
+    .catch(error => {
+        console.log(error)
+        res.status(500).send({error: "Request Failed"})
+    })
 })
 
 //read One
