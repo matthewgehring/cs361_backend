@@ -15,8 +15,6 @@ const getSentiment = async (text) => {
     return data;
 }
 
-// console.log("sentiment", getSentiment("Hello, good people."));
-
 //create
 app.post("/licks", (req, res) => {
     Licks.createLick(req.body)
